@@ -1,0 +1,4 @@
+- Security¶ https://docs.djangoproject.com/en/5.1/topics/settings/#security:~:text=Security%C2%B6,shared%2Dhosting%20environment.
+Because a settings file contains sensitive information, such as the database password, you should make every attempt to limit access to it. For example, change its file permissions so that only you and your web server’s user can read it. This is especially important in a shared-hosting environment.
+
+- Possibility to create a server with python to test: https://perso.liris.cnrs.fr/pchampin/2017/progweb-python/cours/cm1.html#serveur-de-developpement
