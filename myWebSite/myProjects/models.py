@@ -12,6 +12,8 @@ class Project(models.Model):
     }
     
     project_title = models.CharField(max_length=100)
-    project_type = models.Charfield(choices =TYPE_OF_PROJECT_CHOICES, default= PERSONAL)
     project_text = models.TextField()
+    project_image = models.ImageField()
+    project_type = models.Charfield(choices =TYPE_OF_PROJECT_CHOICES, default= PERSONAL)
+    project_date = models.DateTimeField("date published")
 # Create your models here.
