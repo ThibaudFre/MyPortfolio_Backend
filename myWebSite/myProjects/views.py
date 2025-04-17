@@ -11,7 +11,7 @@ def index(request):
 def detail(request):
     return HttpResponse("Hello, world. You're at my detail's project page.")
 
-def project_list(request, isShort):
+def project_list(request, isShort=None):
     if(isShort == "short"):
-        return "Short data's project has been requested";
-    return "Full data's project has been requested";
+        return HttpResponse("Short data's project has been requested");
+    return HttpResponse("Full data's project has been requested");
