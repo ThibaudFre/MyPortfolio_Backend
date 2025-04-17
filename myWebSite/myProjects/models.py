@@ -13,8 +13,11 @@ class Project(models.Model):
     
     
     project_title = models.CharField(max_length=100)
-    project_text = models.TextField()
+    project_short_text = models.TextField(default="")
+    project_text = models.TextField(default="")
     project_link = models.TextField(default="")
+    project_client = models.TextField(default="")
+    project_github_link = models.TextField(default="")
     project_image = models.ImageField(upload_to = "projects")
     project_type = models.CharField(choices =TYPE_OF_PROJECT_CHOICES, default= PERSONAL, max_length=100)
     project_date = models.DateTimeField("date published")

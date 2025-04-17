@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from myprojects.models import Project
 
 
 #def index(request):
@@ -13,5 +14,7 @@ def detail(request):
 
 def project_list(request, isShort=None):
     if(isShort == "short"):
-        return HttpResponse("Short data's project has been requested");
-    return HttpResponse("Full data's project has been requested");
+        project = Project.objects.values("project_title", "project_image")
+        return project;
+    project = Project.objects.values("project_title", "project_image",)
+    return project;
