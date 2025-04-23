@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from myprojects.models import Project
 
 
@@ -15,6 +15,9 @@ def detail(request):
 def project_list(request, isShort=None):
     if(isShort == "short"):
         project = Project.objects.values("project_title", "project_image")
-        return project;
-    project = Project.objects.values("project_title", "project_image",)
-    return project;
+    else:  
+        project = Project.objects.values("project_title", "project_image","project_short_text")
+
+    return JsonResponse(list(project), safe=False)
+    
+
