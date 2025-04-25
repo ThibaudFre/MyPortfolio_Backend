@@ -25,7 +25,7 @@ class ProjectTests(TestCase):
 
         expected_data = {
             "id": project.id,
-            "title": project.project_title,
+            "title": project.project_title, 
             "text": project.project_text,
             "link": project.project_link,
             "githubLink": project.project_github_link,
@@ -38,7 +38,7 @@ class ProjectTests(TestCase):
 
     def test_get_short_data_project(self): 
         client = self.client;
-        url = reverse("project_list_short", args=["short"]);
+        url = reverse("project_list", args=["short"]);
         response = client.get(url);
         project = Project.objects.values("project_title", "project_image")
         response_data = json.loads(response.content.decode())
@@ -47,7 +47,7 @@ class ProjectTests(TestCase):
 
     def test_get_full_data_project(self): 
         client = self.client;
-        url = reverse("project_list");
+        url = reverse("project_list", args=["full"]);
         response = client.get(url);
         project = Project.objects.values("project_title", "project_image",)
         response_data = json.loads(response.content.decode())
