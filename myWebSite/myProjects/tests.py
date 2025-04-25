@@ -2,7 +2,9 @@ from django.test import TestCase
 from django.urls import reverse
 from myprojects.models import Project
 from django.utils import timezone
+from datetime import timezone as dt_timezone
 import json
+
 
 
 
@@ -28,7 +30,7 @@ class ProjectTests(TestCase):
             "link": project.project_link,
             "githubLink": project.project_github_link,
             "client": project.project_client,
-            "date": project.project_date.isoformat()  # Matches JSON date formatting
+            "date": project.project_date.astimezone(dt_timezone.utc).isoformat(timespec='milliseconds').replace('+00:00', 'Z')
         }
 
         self.assertEqual(response.status_code, 200)
