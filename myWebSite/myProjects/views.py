@@ -33,12 +33,11 @@ def detail(request, project_id):
 
 
 
-def project_list(request, isShort):
-    if(isShort == "short"):
+def project_list(request, is_short=False):
+    if is_short:
         project = Project.objects.values("project_title", "project_image", "project_type")
-    elif(isShort == "full"):  
-        project = Project.objects.values("project_title", "project_image","project_short_text", "project_type")
-
+        return JsonResponse(list(project), safe=False)
+    project = Project.objects.values("project_title", "project_image","project_short_text", "project_type")
     return JsonResponse(list(project), safe=False)
-    
+
 

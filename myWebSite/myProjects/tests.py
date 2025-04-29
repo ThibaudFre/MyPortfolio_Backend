@@ -38,7 +38,7 @@ class ProjectTests(TestCase):
 
     def test_get_short_data_project(self): 
         client = self.client;
-        url = reverse("project_list", args=["short"]);
+        url = reverse("project_list_short");
         response = client.get(url);
         project = Project.objects.values("project_title", "project_image")
         response_data = json.loads(response.content.decode())
@@ -47,7 +47,7 @@ class ProjectTests(TestCase):
 
     def test_get_full_data_project(self): 
         client = self.client;
-        url = reverse("project_list", args=["full"]);
+        url = reverse("project_list");
         response = client.get(url);
         project = Project.objects.values("project_title", "project_image",)
         response_data = json.loads(response.content.decode())
