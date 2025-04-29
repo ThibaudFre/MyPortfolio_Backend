@@ -25,3 +25,11 @@ class Project(models.Model):
     def __str__ (self):
         return self.project_title
 # Create your models here.
+
+class Profile(models.Model):
+    profile_name = models.CharField(max_length=100)
+    profile_description = models.TextField(default="")
+    profile_image = models.ImageField(upload_to="profile")
+    
+    def __str__(self):
+        return self
