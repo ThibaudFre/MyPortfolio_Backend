@@ -30,6 +30,7 @@ class Profile(models.Model):
     profile_name = models.CharField(max_length=100)
     profile_description = models.TextField(default="")
     profile_image = models.ImageField(upload_to="profile")
+    profile_stack = models.ManyToManyField(Stack,blank=none)
     
     def __str__(self):
         return self.profile_name
@@ -39,7 +40,15 @@ class Experiences(models.Model):
     xp_start_date = models.DateField()
     xp_end_date = models.DateField(blank=True, null=True)
     xp_description = models.TextField()
-    #xp_stack = models.List to define if one Many field.
-   
+    xp_stack = models.ManyToManyField(Stack)
+
     def __str__(self):
         return self.xp_enterprise
+
+class Stack(models.Models):
+    stack_name: models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.stack_name
+
+
