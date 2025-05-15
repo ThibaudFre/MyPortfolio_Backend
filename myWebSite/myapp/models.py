@@ -37,6 +37,9 @@ class Profile(models.Model):
 class Experiences(models.Model):
     xp_enterprise = models.CharField(max_length=100)
     xp_start_date = models.DateField()
+    xp_end_date = models.DateField(blank=True, null=True)
+    xp_description = models.TextField()
+    #xp_stack = models.List to define if one Many field.
    
     def __str__(self):
         return self.xp_enterprise
