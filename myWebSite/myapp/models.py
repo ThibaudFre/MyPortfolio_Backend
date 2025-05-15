@@ -35,8 +35,8 @@ class Profile(models.Model):
         return self.profile_name
 
 class Experiences(models.Model):
-   xp_enterprise = models.CharField(max_length=100)
-   xp_start_date = models.DateField()
+    xp_enterprise = models.CharField(max_length=100)
+    xp_start_date = models.DateField()
    
     def __str__(self):
         return self.xp_enterprise
