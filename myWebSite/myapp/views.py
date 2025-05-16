@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.generic.detail import DetailView
-from myapp.models import Project
+from myapp.models import Project,Profile
 
 
 #def index(request):
@@ -14,30 +14,36 @@ class ProjectDetailView (DetailView):
         project = self.get_object()
         data = {
             "id": project.id,
-            "title": project.project_title,
-            "text": project.project_text,
-            "link": project.project_link,
-            "githubLink": project.project_github_link,
-            "client": project.project_client,
-            "date": project.project_date 
+            "title": project.title,
+            "text": project.text,
+            "link": project.link,
+            "image":project.image.url,
+            "githubLink": project.github_link,
+            "client": project.client,
+            "date": project.date 
+        }
+        return JsonResponse(data, **response_kwargs)
+
+class ProfileDetailView (DetailView):
+    model = Profile
+
+    def render_to_response(self, context, **response_kwargs):
+        profile = self.get_object()
+        stack_list = list(profile.stack.values_list('name', flat=True))
+        data = {
+            "name": profile.name,
+            "description": profile.description,
+            "image": profile.image.url,
+            "stack": stack_list
         }
         return JsonResponse(data, **response_kwargs)
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at my index's page.")
-
-def detail(request, project_id):
-    project = Project.objects.filter(id = project_id)
-    return JsonResponse(project)
-
-
-
 def project_list(request, is_short=False):
     if is_short:
-        project = Project.objects.values("project_title", "project_image", "project_type")
+        project = Project.objects.values("title", "image", "type")
         return JsonResponse(list(project), safe=False)
-    project = Project.objects.values("project_title", "project_image","project_short_text", "project_type")
+    project = Project.objects.values("title", "image","short_text", "type")
     return JsonResponse(list(project), safe=False)
 
 
