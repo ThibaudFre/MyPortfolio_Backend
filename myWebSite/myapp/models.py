@@ -25,12 +25,18 @@ class Project(models.Model):
     def __str__ (self):
         return self.project_title
 # Create your models here.
+class Stack(models.Model):
+    stack_name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.stack_name
+
 
 class Profile(models.Model):
     profile_name = models.CharField(max_length=100)
     profile_description = models.TextField(default="")
     profile_image = models.ImageField(upload_to="profile")
-    profile_stack = models.ManyToManyField(Stack,blank=none)
+    profile_stack = models.ManyToManyField(Stack,blank=False)
     
     def __str__(self):
         return self.profile_name
@@ -44,11 +50,5 @@ class Experiences(models.Model):
 
     def __str__(self):
         return self.xp_enterprise
-
-class Stack(models.Models):
-    stack_name: models.CharField(max_length=30)
-
-    def __str__(self):
-        return self.stack_name
 
 
