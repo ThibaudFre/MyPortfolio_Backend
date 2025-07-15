@@ -2,7 +2,8 @@ from django.test import TestCase
 from django.urls import reverse
 from myapp.models import Project
 from django.utils import timezone
-from datetime import timezone as dt_timezone
+from datetime import timezone as dt_timezone, date
+from django.core.files.uploadedfile import SimpleUploadedFile
 import json
 
 
@@ -12,12 +13,17 @@ import json
 class ProjectTests(TestCase):
     def test_get_detail(self):
         project = Project.objects.create(
-            project_title="Test Project",
-            project_text="This is a test",
-            project_link="https://example.com",
-            project_github_link="https://github.com/example/project",
-            project_client="Test Client",
-            project_date= timezone.now()
+            title="Test Project",
+            text="This is a test",
+            link="https://example.com",
+            github_link="https://github.com/example/project",
+            image= SimpleUploadedFile(
+                name="test_image.jpg",
+                content=b'\x47\x49\x46\x38\x89\x61',
+                content_type='image/jpeg'
+            ),
+            client="Test Client",
+            date= date.today()
         )
 
         url = reverse("project_detail", kwargs={"pk": project.id})
@@ -25,13 +31,16 @@ class ProjectTests(TestCase):
 
         expected_data = {
             "id": project.id,
-            "title": project.project_title, 
-            "text": project.project_text,
-            "link": project.project_link,
-            "githubLink": project.project_github_link,
-            "client": project.project_client,
-            "date": project.project_date.astimezone(dt_timezone.utc).isoformat(timespec='milliseconds').replace('+00:00', 'Z')
+            "title": project.title, 
+            "text": project.text,
+            "link": project.link,
+            "githubLink": project.github_link,
+            "image": project.image.url,
+            "client": project.client,
+            "date":  project.date.isoformat()
         }
+
+        print(response.json())
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), expected_data)
@@ -40,7 +49,7 @@ class ProjectTests(TestCase):
         client = self.client;
         url = reverse("project_list_short");
         response = client.get(url);
-        project = Project.objects.values("project_title", "project_image")
+        project = Project.objects.values("title", "image")
         response_data = json.loads(response.content.decode())
 
         self.assertEqual(response_data, list(project))
@@ -49,7 +58,7 @@ class ProjectTests(TestCase):
         client = self.client;
         url = reverse("project_list");
         response = client.get(url);
-        project = Project.objects.values("project_title", "project_image",)
+        project = Project.objects.values("title", "image",)
         response_data = json.loads(response.content.decode())
 
         self.assertEqual(response_data, list(project))

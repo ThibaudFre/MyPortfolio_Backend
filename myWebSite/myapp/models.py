@@ -23,7 +23,7 @@ class Project(models.Model):
     date = models.DateField("date published")
     
     def __str__ (self):
-        return self.project_title
+        return self.title
 # Create your models here.
 class Stack(models.Model):
     name = models.CharField(max_length=30)
@@ -40,7 +40,7 @@ class Profile(models.Model):
 
     
     def __str__(self):
-        return self.profile_name
+        return self.name
 
 class Experiences(models.Model):
     enterprise = models.CharField(max_length=100)
