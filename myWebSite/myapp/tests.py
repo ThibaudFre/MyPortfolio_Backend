@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from myapp.models import Project
+from myapp.models import Project, Stack
 from django.utils import timezone
 from datetime import timezone as dt_timezone, date
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -65,4 +65,12 @@ class ProjectTests(TestCase):
     
     
 
-# Create your tests here.
+class StackTests(TestCase):
+    def test_get_stack(self):
+        client = self.client;
+        url = reverse("stack_list")
+        response = client.get(url);
+        stack = Stack.objects.all();
+        response_data = json.loads(response.content.decode())
+        self.assertEqual(response_data, list(stack))
+    

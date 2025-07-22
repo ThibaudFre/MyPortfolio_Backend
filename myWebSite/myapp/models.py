@@ -29,7 +29,7 @@ class Stack(models.Model):
     name = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.stack_name
+        return self.name
 
 
 class Profile(models.Model):
@@ -50,6 +50,6 @@ class Experiences(models.Model):
     stack = models.ManyToManyField(Stack)
 
     def __str__(self):
-        return self.xp_enterprise
+        return self.enterprise
 
 

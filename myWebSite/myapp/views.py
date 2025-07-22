@@ -1,6 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.generic.detail import DetailView
-from myapp.models import Project,Profile
+from django.views.generic import ListView
+from myapp.models import Project,Profile, Stack
 
 
 #def index(request):
@@ -24,7 +25,7 @@ class ProjectDetailView (DetailView):
         }
         return JsonResponse(data, **response_kwargs)
 
-class ProfileDetailView (DetailView):
+class ProfilDetailView (DetailView):
     model = Profile
 
     def render_to_response(self, context, **response_kwargs):
@@ -37,6 +38,11 @@ class ProfileDetailView (DetailView):
             "stack": stack_list
         }
         return JsonResponse(data, **response_kwargs)
+    
+class StackListView(ListView):
+    model = Stack
+    def render_to_response(self, context, **response_kwargs):
+        return
 
 
 def project_list(request, is_short=False):
