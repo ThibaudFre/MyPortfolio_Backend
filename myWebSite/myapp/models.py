@@ -42,7 +42,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.name
 
-class Experiences(models.Model):
+class Experience(models.Model):
     enterprise = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)

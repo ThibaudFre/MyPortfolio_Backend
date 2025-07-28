@@ -42,7 +42,8 @@ class ProfilDetailView (DetailView):
 class StackListView(ListView):
     model = Stack
     def render_to_response(self, context, **response_kwargs):
-        return
+        print(f"this is the answer{self.get_queryset().values("name")}")
+        return JsonResponse(list(self.get_queryset().values("name")), safe=False)
 
 
 def project_list(request, is_short=False):
