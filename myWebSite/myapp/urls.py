@@ -6,7 +6,7 @@ from .views import ProjectDetailView, ProfilDetailView, StackListView
 from . import views
 
 urlpatterns = [
-    path("profile/<int:pk>", ProfilDetailView.as_view(), name="profile"),
+    path("profile/<int:pk>", ProfilDetailView.as_view(), name="my_profile"),
     path("projectlist/", views.project_list, name="project_list"),
     path("projectlist/short", views.project_list, {"is_short": True}, name="project_list_short"),
     path("detail/<int:pk>", ProjectDetailView.as_view(), name="project_detail"),

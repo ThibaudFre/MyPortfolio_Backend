@@ -74,3 +74,11 @@ class StackTests(TestCase):
         response_data = json.loads(response.content.decode())
         self.assertEqual(response_data, list(stack))
     
+class ProfilDetailTest(TestCase):
+    def test_get_profile(self):
+        client = self.client;
+        url = reverse("my_profile", kwargs={"pk":1})
+        response = client.get(url);
+        profile = profile.objects.all();
+        response_data = json.loads(response.content.decode())
+        self.assertEqual(response_data, list(profile))
